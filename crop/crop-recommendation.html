@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation - CropSmart</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Serif+Display&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-seedling"></i>
+                <span>CropSmart</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="price-prediction.html" class="nav-link">Price Prediction</a></li>
+                <li><a href="crop-recommendation.html" class="nav-link active">Crop Recommendation</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Language Selector - Top Right -->
+    <div class="language-selector-container">
+        <button class="language-toggle" id="languageToggle">
+            <i class="fas fa-globe"></i>
+            <span id="currentLangLabel">English</span>
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="language-menu hidden" id="languageMenu">
+            <button class="lang-option active" data-lang="en">
+                <span>🇬🇧 English</span>
+            </button>
+            <button class="lang-option" data-lang="hi">
+                <span>🇮🇳 हिन्दी (Hindi)</span>
+            </button>
+            <button class="lang-option" data-lang="mr">
+                <span>🇮🇳 मराठी (Marathi)</span>
+            </button>
+            <button class="lang-option" data-lang="ta">
+                <span>🇮🇳 தமிழ் (Tamil)</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Recommendation Section -->
+    <section class="crop-recommendation">
+        <div class="container">
+            <!-- Page Header with Hero Vibe -->
+            <div class="page-header-enhanced">
+                <div class="header-glow"></div>
+                <h1>
+                    <span class="leaf-accent">🌾</span>
+                    <span data-i18n="page-title">Smart Crop Advisor</span>
+                </h1>
+                <p data-i18n="page-subtitle">Real-time weather intelligence + AI-powered recommendations</p>
+            </div>
+
+            <!-- Weather Auto-fill Card - Premium Design -->
+            <div class="weather-card-premium">
+                <div class="weather-card-left">
+                    <div class="weather-icon-large">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <div class="weather-text">
+                        <h3 data-i18n="weather-title">Detect Your Weather</h3>
+                        <p data-i18n="weather-desc">Allow location access to auto-fill temperature, humidity & rainfall with live data</p>
+                    </div>
+                </div>
+                <button class="btn-weather-premium" id="weatherFillBtn" onclick="autoFillWeather()">
+                    <span class="btn-label" data-i18n="weather-btn">Use My Location</span>
+                    <i class="fas fa-location-crosshairs"></i>
+                </button>
+            </div>
+
+            <!-- Weather Status - Beautiful Display -->
+            <div id="weatherStatus" class="weather-display-premium hidden">
+                <div class="weather-display-inner">
+                    <div class="weather-main-stat">
+                        <div class="weather-icon-circle" id="weatherIconWrap">
+                            <i class="fas fa-sun" id="weatherIcon"></i>
+                        </div>
+                        <div class="weather-info">
+                            <p class="weather-location" id="weatherLocation">Detecting...</p>
+                            <p class="weather-desc" id="weatherDesc">—</p>
+                        </div>
+                    </div>
+                    <div class="weather-metrics">
+                        <div class="metric-card">
+                            <i class="fas fa-thermometer-half"></i>
+                            <span class="metric-label" data-i18n="metric-temp">Temperature</span>
+                            <span class="metric-value" id="wTemp">—</span>
+                        </div>
+                        <div class="metric-card">
+                            <i class="fas fa-droplet"></i>
+                            <span class="metric-label" data-i18n="metric-humidity">Humidity</span>
+                            <span class="metric-value" id="wHumidity">—</span>
+                        </div>
+                        <div class="metric-card">
+                            <i class="fas fa-cloud-rain"></i>
+                            <span class="metric-label" data-i18n="metric-rainfall">Rainfall (24h)</span>
+                            <span class="metric-value" id="wRain">—</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error message -->
+            <div id="weatherError" class="alert-error hidden">
+                <div class="alert-icon">
+                    <i class="fas fa-circle-exclamation"></i>
+                </div>
+                <div class="alert-text">
+                    <span id="weatherErrorMsg">Could not fetch weather data.</span>
+                </div>
+            </div>
+
+            <!-- Form Section with Modern Grid -->
+            <div class="form-section">
+                <h2 class="form-title" data-i18n="form-title">Your Farm Details</h2>
+                <div class="recommendation-form-enhanced">
+                    <div class="form-grid">
+                        <!-- Temperature -->
+                        <div class="form-group-enhanced">
+                            <div class="form-header">
+                                <label data-i18n="label-temp">Temperature</label>
+                                <span class="live-indicator hidden" id="tempLiveBadge">
+                                    <i class="fas fa-circle-check"></i> <span data-i18n="badge-live">Live</span>
+                                </span>
+                            </div>
+                            <div class="range-container">
+                                <input type="range" id="temperature" min="15" max="45" value="28" class="slider-enhanced">
+                                <div class="range-labels">
+                                    <span>15°C</span>
+                                    <span id="tempValue" class="range-value">28°C</span>
+                                    <span>45°C</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Humidity -->
+                        <div class="form-group-enhanced">
+                            <div class="form-header">
+                                <label data-i18n="label-humidity">Humidity</label>
+                                <span class="live-indicator hidden" id="humidityLiveBadge">
+                                    <i class="fas fa-circle-check"></i> <span data-i18n="badge-live">Live</span>
+                                </span>
+                            </div>
+                            <div class="range-container">
+                                <input type="range" id="humidity" min="20" max="100" value="65" class="slider-enhanced">
+                                <div class="range-labels">
+                                    <span>20%</span>
+                                    <span id="humidityValue" class="range-value">65%</span>
+                                    <span>100%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rainfall -->
+                        <div class="form-group-enhanced">
+                            <div class="form-header">
+                                <label data-i18n="label-rainfall">Rainfall (Next 24h)</label>
+                                <span class="live-indicator hidden" id="rainfallLiveBadge">
+                                    <i class="fas fa-circle-check"></i> <span data-i18n="badge-live">Live</span>
+                                </span>
+                            </div>
+                            <div class="range-container">
+                                <input type="range" id="rainfall" min="0" max="300" value="80" class="slider-enhanced">
+                                <div class="range-labels">
+                                    <span>0mm</span>
+                                    <span id="rainfallValue" class="range-value">80mm</span>
+                                    <span>300mm</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Soil Type -->
+                        <div class="form-group-enhanced">
+                            <label data-i18n="label-soil">Soil Type</label>
+                            <select id="soilType" class="select-enhanced">
+                                <option value="loamy" data-i18n="soil-loamy">🟫 Loamy Soil</option>
+                                <option value="sandy" data-i18n="soil-sandy">🟨 Sandy Soil</option>
+                                <option value="clay" data-i18n="soil-clay">🟪 Clay Soil</option>
+                                <option value="red" data-i18n="soil-red">🔴 Red Soil</option>
+                            </select>
+                        </div>
+
+                        <!-- Area -->
+                        <div class="form-group-enhanced">
+                            <label data-i18n="label-area">Farm Area</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="area" min="0.1" max="100" step="0.1" value="2" class="input-enhanced">
+                                <span class="input-unit" data-i18n="unit-hectares">hectares</span>
+                            </div>
+                        </div>
+
+                        <!-- Region -->
+                        <div class="form-group-enhanced">
+                            <div class="form-header">
+                                <label data-i18n="label-region">Region</label>
+                                <span class="live-indicator hidden" id="regionLiveBadge">
+                                    <i class="fas fa-check-circle"></i> <span data-i18n="badge-detected">Detected</span>
+                                </span>
+                            </div>
+                            <select id="region" class="select-enhanced">
+                                <option value="punjab" data-i18n="region-punjab">🌾 Punjab</option>
+                                <option value="maharashtra" data-i18n="region-maharashtra">🌾 Maharashtra</option>
+                                <option value="tamilnadu" data-i18n="region-tamilnadu">🌾 Tamil Nadu</option>
+                                <option value="karnataka" data-i18n="region-karnataka">🌾 Karnataka</option>
+                                <option value="gujarat" data-i18n="region-gujarat">🌾 Gujarat</option>
+                                <option value="rajasthan" data-i18n="region-rajasthan">🌾 Rajasthan</option>
+                                <option value="up" data-i18n="region-up">🌾 Uttar Pradesh</option>
+                                <option value="mp" data-i18n="region-mp">🌾 Madhya Pradesh</option>
+                                <option value="andhra" data-i18n="region-andhra">🌾 Andhra Pradesh</option>
+                                <option value="telangana" data-i18n="region-telangana">🌾 Telangana</option>
+                                <option value="other" data-i18n="region-other">🌾 Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <button class="btn-analyze" onclick="getRecommendations()">
+                        <i class="fas fa-sparkles"></i>
+                        <span data-i18n="btn-analyze">Get Smart Recommendations</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Section with Enhanced Cards -->
+            <div id="recommendationResults" class="recommendations-section-enhanced hidden">
+                <div class="results-header">
+                    <h2 data-i18n="results-title">Top Crop Recommendations</h2>
+                    <p data-i18n="results-subtitle">Based on your weather & farm conditions</p>
+                </div>
+                <div class="crops-grid-enhanced" id="cropsGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-seedling"></i>
+                        <span>CropSmart</span>
+                    </div>
+                    <p data-i18n="footer-tagline">Empowering farmers with AI-driven insights for better decisions.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 data-i18n="footer-links">Quick Links</h4>
+                    <ul>
+                        <li><a href="price-prediction.html" data-i18n="footer-price">Price Prediction</a></li>
+                        <li><a href="crop-recommendation.html" data-i18n="footer-recommend">Recommendations</a></li>
+                        <li><a href="about.html" data-i18n="footer-about">About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CropSmart. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Language JSON Data -->
+    <script id="language-data" type="application/json">
+    {
+        "en": {
+            "page-title": "Smart Crop Advisor",
+            "page-subtitle": "Real-time weather intelligence + AI-powered recommendations",
+            "weather-title": "Detect Your Weather",
+            "weather-desc": "Allow location access to auto-fill temperature, humidity & rainfall with live data",
+            "weather-btn": "Use My Location",
+            "metric-temp": "Temperature",
+            "metric-humidity": "Humidity",
+            "metric-rainfall": "Rainfall (24h)",
+            "form-title": "Your Farm Details",
+            "label-temp": "Temperature",
+            "label-humidity": "Humidity",
+            "label-rainfall": "Rainfall (Next 24h)",
+            "label-soil": "Soil Type",
+            "label-area": "Farm Area",
+            "label-region": "Region",
+            "badge-live": "Live",
+            "badge-detected": "Detected",
+            "soil-loamy": "🟫 Loamy Soil",
+            "soil-sandy": "🟨 Sandy Soil",
+            "soil-clay": "🟪 Clay Soil",
+            "soil-red": "🔴 Red Soil",
+            "unit-hectares": "hectares",
+            "region-punjab": "🌾 Punjab",
+            "region-maharashtra": "🌾 Maharashtra",
+            "region-tamilnadu": "🌾 Tamil Nadu",
+            "region-karnataka": "🌾 Karnataka",
+            "region-gujarat": "🌾 Gujarat",
+            "region-rajasthan": "🌾 Rajasthan",
+            "region-up": "🌾 Uttar Pradesh",
+            "region-mp": "🌾 Madhya Pradesh",
+            "region-andhra": "🌾 Andhra Pradesh",
+            "region-telangana": "🌾 Telangana",
+            "region-other": "🌾 Other",
+            "btn-analyze": "Get Smart Recommendations",
+            "results-title": "Top Crop Recommendations",
+            "results-subtitle": "Based on your weather & farm conditions",
+            "footer-tagline": "Empowering farmers with AI-driven insights for better decisions.",
+            "footer-links": "Quick Links",
+            "footer-price": "Price Prediction",
+            "footer-recommend": "Recommendations",
+            "footer-about": "About Us"
+        },
+        "hi": {
+            "page-title": "स्मार्ट फसल सलाहकार",
+            "page-subtitle": "रीयल-टाइम मौसम खुफिया + AI संचालित सिफारिशें",
+            "weather-title": "अपना मौसम खोजें",
+            "weather-desc": "तापमान, आर्द्रता और वर्षा को स्वचालित रूप से भरने के लिए स्थान पहुंच की अनुमति दें",
+            "weather-btn": "मेरा स्थान उपयोग करें",
+            "metric-temp": "तापमान",
+            "metric-humidity": "आर्द्रता",
+            "metric-rainfall": "वर्षा (24 घंटे)",
+            "form-title": "आपकी खेत की जानकारी",
+            "label-temp": "तापमान",
+            "label-humidity": "आर्द्रता",
+            "label-rainfall": "वर्षा (अगले 24 घंटे)",
+            "label-soil": "मिट्टी का प्रकार",
+            "label-area": "खेत का क्षेत्र",
+            "label-region": "क्षेत्र",
+            "badge-live": "लाइव",
+            "badge-detected": "पता लगाया गया",
+            "soil-loamy": "🟫 दोमट मिट्टी",
+            "soil-sandy": "🟨 बलुई मिट्टी",
+            "soil-clay": "🟪 चिकनी मिट्टी",
+            "soil-red": "🔴 लाल मिट्टी",
+            "unit-hectares": "हेक्टेयर",
+            "region-punjab": "🌾 पंजाब",
+            "region-maharashtra": "🌾 महाराष्ट्र",
+            "region-tamilnadu": "🌾 तमिलनाडु",
+            "region-karnataka": "🌾 कर्नाटक",
+            "region-gujarat": "🌾 गुजरात",
+            "region-rajasthan": "🌾 राजस्थान",
+            "region-up": "🌾 उत्तर प्रदेश",
+            "region-mp": "🌾 मध्य प्रदेश",
+            "region-andhra": "🌾 आंध्र प्रदेश",
+            "region-telangana": "🌾 तेलंगाना",
+            "region-other": "🌾 अन्य",
+            "btn-analyze": "स्मार्ट सिफारिशें प्राप्त करें",
+            "results-title": "शीर्ष फसल सिफारिशें",
+            "results-subtitle": "आपके मौसम और खेत की स्थिति के आधार पर",
+            "footer-tagline": "किसानों को बेहतर निर्णय लेने के लिए AI संचालित अंतर्दृष्टि प्रदान करना।",
+            "footer-links": "त्वरित लिंक",
+            "footer-price": "मूल्य पूर्वानुमान",
+            "footer-recommend": "सिफारिशें",
+            "footer-about": "हमारे बारे में"
+        },
+        "mr": {
+            "page-title": "स्मार्ट पिक सल्लागार",
+            "page-subtitle": "रीअल-टाइम हवामान बुद्धिमत्ता + AI-संचालित शिफारशी",
+            "weather-title": "तुमचे हवामान शोधा",
+            "weather-desc": "तापमान, आर्द्रता आणि पाऊस स्वयंचलितपणे भरण्यासाठी स्थान प्रवेश अनुमती द्या",
+            "weather-btn": "माझे स्थान वापरा",
+            "metric-temp": "तापमान",
+            "metric-humidity": "आर्द्रता",
+            "metric-rainfall": "पाऊस (२४ तास)",
+            "form-title": "आपल्या शेताची माहिती",
+            "label-temp": "तापमान",
+            "label-humidity": "आर्द्रता",
+            "label-rainfall": "पाऊस (पुढील २४ तास)",
+            "label-soil": "मातीचा प्रकार",
+            "label-area": "शेताचे क्षेत्र",
+            "label-region": "क्षेत्र",
+            "badge-live": "लाइव",
+            "badge-detected": "शोधले",
+            "soil-loamy": "🟫 दोमट माती",
+            "soil-sandy": "🟨 वाळूच्या माती",
+            "soil-clay": "🟪 चिकणी माती",
+            "soil-red": "🔴 लाल माती",
+            "unit-hectares": "हेक्टर",
+            "region-punjab": "🌾 पंजाब",
+            "region-maharashtra": "🌾 महाराष्ट्र",
+            "region-tamilnadu": "🌾 तमिळनाडु",
+            "region-karnataka": "🌾 कर्नाटक",
+            "region-gujarat": "🌾 गुजरात",
+            "region-rajasthan": "🌾 राजस्थान",
+            "region-up": "🌾 उत्तर प्रदेश",
+            "region-mp": "🌾 मध्य प्रदेश",
+            "region-andhra": "🌾 आंध्र प्रदेश",
+            "region-telangana": "🌾 तेलंगाना",
+            "region-other": "🌾 इतर",
+            "btn-analyze": "स्मार्ट शिफारशी मिळवा",
+            "results-title": "शीर्ष पिक शिफारशी",
+            "results-subtitle": "तुमच्या हवामान आणि शेताच्या परिस्थितीच्या आधारे",
+            "footer-tagline": "किसानांना बेहतर निर्णय घेण्यासाठी AI-चालित अंतर्दृष्टी प्रदान करणे।",
+            "footer-links": "द्रुत लिंक्स",
+            "footer-price": "किंमत अंदाज",
+            "footer-recommend": "शिफारशी",
+            "footer-about": "आमच्याबद्दल"
+        },
+        "ta": {
+            "page-title": "ஸ்மார்ட் பயிர் ஆலோசகர்",
+            "page-subtitle": "நிலையான நேர வானிலை தகவல் + AI-உயர்த்திய பரிந்துரைகள்",
+            "weather-title": "உங்கள் வானிலையைக் கண்டறியவும்",
+            "weather-desc": "வெப்பநிலை, ஈரப்பதம் மற்றும் மழைப்பளவை தானாக நிரப்ப இருப்பிடம் அணுகலை அனுமதிக்கவும்",
+            "weather-btn": "என் இருப்பிடத்தைப் பயன்படுத்தவும்",
+            "metric-temp": "வெப்பநிலை",
+            "metric-humidity": "ஈரப்பதம்",
+            "metric-rainfall": "மழைப்பளவு (२४ மணிநேரம்)",
+            "form-title": "உங்கள் விவசாய நிலக்குறிப்பு",
+            "label-temp": "வெப்பநிலை",
+            "label-humidity": "ஈரப்பதம்",
+            "label-rainfall": "மழைப்பளவு (அடுத்த २४ மணிநேரம்)",
+            "label-soil": "மண்ணின் வகை",
+            "label-area": "விவசாய நிலத்தின் பரப்பளவு",
+            "label-region": "பிரதேசம்",
+            "badge-live": "நேரடி",
+            "badge-detected": "கண்டறிந்த",
+            "soil-loamy": "🟫 உளர் மண்",
+            "soil-sandy": "🟨 மணல் மண்",
+            "soil-clay": "🟪 களிமண் மண்",
+            "soil-red": "🔴 சிவப்பு மண்",
+            "unit-hectares": "ஹெக்டேர்",
+            "region-punjab": "🌾 பஞ்சாப்",
+            "region-maharashtra": "🌾 மகாராஷ்டிரா",
+            "region-tamilnadu": "🌾 தமிழ்நாடு",
+            "region-karnataka": "🌾 கர்நாடகா",
+            "region-gujarat": "🌾 குஜராத்",
+            "region-rajasthan": "🌾 ராஜஸ்தான்",
+            "region-up": "🌾 உத்தரபிரதேசம்",
+            "region-mp": "🌾 மத்திய பிரதேசம்",
+            "region-andhra": "🌾 ஆந்திரப் பிரதேசம்",
+            "region-telangana": "🌾 தெலங்கானா",
+            "region-other": "🌾 வேறுபட்டவை",
+            "btn-analyze": "ஸ்மார்ட் பரிந்துரைகளைப் பெறவும்",
+            "results-title": "கீழ்சாய்ந்த பயிர் பரிந்துரைகள்",
+            "results-subtitle": "உங்கள் வானிலை மற்றும் விவசாய நிலம் நிலையின் அடிப்படையில்",
+            "footer-tagline": "விவசாயிகளுக்கு சிறந்த முடிவுகளை எடுக்க AI-உயர்த்திய நுண்ணறிவை வழங்குதல்.",
+            "footer-links": "விரைவு இணைப்புகள்",
+            "footer-price": "விலை முன்னறிவிப்பு",
+            "footer-recommend": "பரிந்துரைகள்",
+            "footer-about": "எங்களைப் பற்றி"
+        }
+    }
+    </script>
+
+    <script src="js/language.js"></script>
+    <script src="js/crop-recommendation.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

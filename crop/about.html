@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - CropSmart</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .about-page { padding-top: 68px; min-height: 100vh; background: var(--cream); }
+
+        /* Mission section */
+        .mission-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 40px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+        .mission-card h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.45rem;
+            color: var(--forest);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .mission-card h2 i {
+            width: 42px; height: 42px;
+            background: linear-gradient(135deg, var(--leaf) 0%, var(--leaf-light) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .mission-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.75;
+        }
+
+        /* Features list */
+        .features-about {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .feature-about-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: var(--cream);
+            border: 1.5px solid var(--border);
+            border-radius: var(--r-md);
+            padding: 18px 16px;
+            transition: all .2s;
+        }
+        .feature-about-item:hover { border-color: var(--leaf); box-shadow: var(--shadow-sm); }
+        .feature-about-item .fab-icon {
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, var(--forest) 0%, var(--forest-mid) 100%);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: .95rem; color: var(--lime); flex-shrink: 0;
+        }
+        .feature-about-item h4 { font-weight: 700; font-size: .93rem; color: var(--forest); margin-bottom: 3px; }
+        .feature-about-item p { font-size: .83rem; color: var(--text-muted); line-height: 1.5; }
+
+        /* Tech stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 14px;
+            margin-top: 4px;
+        }
+        .tech-pill {
+            background: var(--cream);
+            border: 1.5px solid var(--border);
+            border-radius: var(--r-md);
+            padding: 14px 12px;
+            text-align: center;
+            transition: all .2s;
+        }
+        .tech-pill:hover { border-color: var(--leaf); background: white; }
+        .tech-pill i { font-size: 1.4rem; color: var(--leaf); display: block; margin-bottom: 6px; }
+        .tech-pill span { font-size: .82rem; font-weight: 600; color: var(--text-mid); }
+
+        /* Creator card */
+        .creator-wrapper {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 40px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+        .creator-inner {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+        .creator-avatar-wrap {
+            position: relative; flex-shrink: 0;
+        }
+        .creator-avatar {
+            width: 90px; height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--lime);
+        }
+        .creator-avatar-placeholder {
+            width: 90px; height: 90px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--forest) 0%, var(--leaf) 100%);
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 700; color: var(--lime);
+            border: 3px solid var(--lime);
+        }
+        .creator-badge {
+            position: absolute; bottom: 0; right: -4px;
+            width: 26px; height: 26px; border-radius: 50%;
+            background: var(--leaf); border: 2px solid white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: .65rem; color: white;
+        }
+        .creator-info { flex: 1; min-width: 0; }
+        .creator-info h3 { font-family: 'Fraunces', serif; font-size: 1.35rem; color: var(--forest); margin-bottom: 4px; }
+        .creator-role { color: var(--leaf); font-size: .88rem; font-weight: 600; margin-bottom: 10px; }
+        .creator-bio { color: var(--text-muted); font-size: .92rem; line-height: 1.65; margin-bottom: 16px; }
+        .creator-links { display: flex; gap: 10px; flex-wrap: wrap; }
+        .creator-link {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 8px 16px; border-radius: 50px;
+            background: var(--cream); border: 1.5px solid var(--border);
+            color: var(--text-mid); text-decoration: none;
+            font-size: .84rem; font-weight: 600; transition: all .2s;
+        }
+        .creator-link:hover { background: var(--forest); color: white; border-color: var(--forest); }
+        .creator-link i { font-size: .9rem; }
+
+        /* CTA strip */
+        .about-cta {
+            background: linear-gradient(135deg, var(--forest) 0%, #1a4030 100%);
+            border-radius: var(--r-xl);
+            padding: 40px 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        .about-cta-text h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; color: white; margin-bottom: 6px; }
+        .about-cta-text p { color: rgba(255,255,255,.62); font-size: .92rem; }
+        .about-cta-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn-about-cta {
+            display: inline-flex; align-items: center; gap: 9px;
+            padding: 13px 24px; border-radius: 50px;
+            font-weight: 700; font-size: .9rem; text-decoration: none; transition: all .25s;
+        }
+        .btn-about-cta.primary { background: var(--lime); color: var(--forest); }
+        .btn-about-cta.primary:hover { background: white; transform: translateY(-2px); }
+        .btn-about-cta.outline { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,.35); }
+        .btn-about-cta.outline:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.6); }
+
+        @media (max-width: 600px) {
+            .creator-inner { flex-direction: column; text-align: center; }
+            .creator-links { justify-content: center; }
+            .about-cta { flex-direction: column; text-align: center; }
+            .about-cta-btns { justify-content: center; }
+            .mission-card, .creator-wrapper { padding: 24px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo"><i class="fas fa-seedling"></i><span>CropSmart</span></div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="price-prediction.html" class="nav-link">Price Prediction</a></li>
+                <li><a href="crop-recommendation.html" class="nav-link">Crop Recommendation</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+            </ul>
+            <div class="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <div class="language-selector-container">
+        <button class="language-toggle" id="languageToggle">
+            <i class="fas fa-globe"></i><span id="currentLangLabel">English</span><i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="language-menu hidden" id="languageMenu">
+            <button class="lang-option active" data-lang="en"><span>🇬🇧 English</span></button>
+            <button class="lang-option" data-lang="hi"><span>🇮🇳 हिन्दी (Hindi)</span></button>
+            <button class="lang-option" data-lang="mr"><span>🇮🇳 मराठी (Marathi)</span></button>
+            <button class="lang-option" data-lang="ta"><span>🇮🇳 தமிழ் (Tamil)</span></button>
+        </div>
+    </div>
+
+    <section class="about-page">
+        <div class="container">
+
+            <!-- Page Header -->
+            <div class="page-header-enhanced">
+                <div class="header-glow"></div>
+                <h1><span class="leaf-accent">🌱</span><span data-i18n="page-title">About CropSmart</span></h1>
+                <p data-i18n="page-subtitle">Revolutionising agriculture with AI-powered insights for Indian farmers</p>
+            </div>
+
+            <!-- Mission -->
+            <div class="mission-card">
+                <h2><i class="fas fa-bullseye"></i><span data-i18n="mission-title">Our Mission</span></h2>
+                <p data-i18n="mission-text">CropSmart uses advanced machine learning algorithms to analyse weather patterns, historical crop data, and market trends to provide farmers with actionable insights that maximise profits and minimise risks. We believe every farmer — regardless of farm size or location — deserves access to the same quality of data that large agri-businesses rely on.</p>
+
+                <div class="features-about">
+                    <div class="feature-about-item">
+                        <div class="fab-icon"><i class="fas fa-brain"></i></div>
+                        <div>
+                            <h4 data-i18n="feat-1">AI-Powered Predictions</h4>
+                            <p data-i18n="feat-1-desc">ML models trained on 10+ years of real Indian market data.</p>
+                        </div>
+                    </div>
+                    <div class="feature-about-item">
+                        <div class="fab-icon"><i class="fas fa-database"></i></div>
+                        <div>
+                            <h4 data-i18n="feat-2">Historical Data</h4>
+                            <p data-i18n="feat-2-desc">10+ years of crop price history across Indian markets.</p>
+                        </div>
+                    </div>
+                    <div class="feature-about-item">
+                        <div class="fab-icon"><i class="fas fa-globe"></i></div>
+                        <div>
+                            <h4 data-i18n="feat-3">India-wide Coverage</h4>
+                            <p data-i18n="feat-3-desc">Recommendations for all major Indian agricultural regions.</p>
+                        </div>
+                    </div>
+                    <div class="feature-about-item">
+                        <div class="fab-icon"><i class="fas fa-language"></i></div>
+                        <div>
+                            <h4 data-i18n="feat-4">4 Languages</h4>
+                            <p data-i18n="feat-4-desc">English, हिन्दी, मराठी, and தமிழ் fully supported.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="mission-card">
+                <h2><i class="fas fa-code"></i><span data-i18n="tech-title">Built With</span></h2>
+                <p style="margin-bottom: 20px;" data-i18n="tech-desc">CropSmart is a pure frontend application — no server required. All AI scoring runs in your browser using rule-based ML logic.</p>
+                <div class="tech-grid">
+                    <div class="tech-pill"><i class="fab fa-html5"></i><span>HTML5</span></div>
+                    <div class="tech-pill"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+                    <div class="tech-pill"><i class="fab fa-js"></i><span>Vanilla JS</span></div>
+                    <div class="tech-pill"><i class="fas fa-chart-line"></i><span>Chart.js</span></div>
+                    <div class="tech-pill"><i class="fas fa-cloud-sun"></i><span>OpenWeatherMap</span></div>
+                    <div class="tech-pill"><i class="fas fa-mobile-alt"></i><span>Responsive</span></div>
+                </div>
+            </div>
+
+            <!-- Creator -->
+            <div class="creator-wrapper">
+                <h2 style="font-family:'Fraunces',serif;font-size:1.35rem;color:var(--forest);margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+                    <i class="fas fa-user" style="width:40px;height:40px;background:linear-gradient(135deg,var(--leaf),var(--leaf-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:white;flex-shrink:0;"></i>
+                    <span data-i18n="creator-title">Meet the Creator</span>
+                </h2>
+                <div class="creator-inner">
+                    <div class="creator-avatar-wrap">
+                        <div class="creator-avatar-placeholder">T</div>
+                        <div class="creator-badge"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="creator-info">
+                        <h3>TechTitans</h3>
+                        <p class="creator-role" data-i18n="creator-role">Full-Stack Developer &amp; AI Enthusiast</p>
+                        <p class="creator-bio" data-i18n="creator-bio">Creator of the CropSmart AI Platform. Passionate about using technology to solve real-world problems for Indian farmers. Building tools that are accessible, multilingual, and actually useful in the field.</p>
+                        <div class="creator-links">
+                            <a href="https://github.com/rodrixdcruz" class="creator-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://www.linkedin.com/in/rodrix-d-curz-590a2b32b/" class="creator-link" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                            <a href="mailto:rodrixdcurz@gmail.com" class="creator-link"><i class="fas fa-envelope"></i> Contact</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="about-cta">
+                <div class="about-cta-text">
+                    <h3 data-i18n="cta-title">Start Using CropSmart Today</h3>
+                    <p data-i18n="cta-sub">Free, no account required — just insights for better farming.</p>
+                </div>
+                <div class="about-cta-btns">
+                    <a href="price-prediction.html" class="btn-about-cta primary"><i class="fas fa-chart-line"></i><span data-i18n="cta-price">Predict Prices</span></a>
+                    <a href="crop-recommendation.html" class="btn-about-cta outline"><i class="fas fa-leaf"></i><span data-i18n="cta-crop">Get Recommendations</span></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo"><i class="fas fa-seedling"></i><span>CropSmart</span></div>
+                    <p data-i18n="footer-tagline">Empowering farmers with AI-driven insights for better decisions.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 data-i18n="footer-links">Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html" data-i18n="footer-home">Home</a></li>
+                        <li><a href="price-prediction.html" data-i18n="footer-price">Price Prediction</a></li>
+                        <li><a href="crop-recommendation.html" data-i18n="footer-recommend">Recommendations</a></li>
+                        <li><a href="about.html" data-i18n="footer-about">About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 CropSmart. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script id="language-data" type="application/json">
+    {"en":{"page-title":"About CropSmart","page-subtitle":"Revolutionising agriculture with AI-powered insights for Indian farmers","mission-title":"Our Mission","mission-text":"CropSmart uses advanced machine learning algorithms to analyse weather patterns, historical crop data, and market trends to provide farmers with actionable insights that maximise profits and minimise risks. We believe every farmer deserves access to the same quality of data that large agri-businesses rely on.","feat-1":"AI-Powered Predictions","feat-1-desc":"ML models trained on 10+ years of real Indian market data.","feat-2":"Historical Data","feat-2-desc":"10+ years of crop price history across Indian markets.","feat-3":"India-wide Coverage","feat-3-desc":"Recommendations for all major Indian agricultural regions.","feat-4":"4 Languages","feat-4-desc":"English, हिन्दी, मराठी, and தமிழ் fully supported.","tech-title":"Built With","tech-desc":"CropSmart is a pure frontend application — no server required. All AI scoring runs in your browser using rule-based ML logic.","creator-title":"Meet the Creator","creator-role":"Full-Stack Developer & AI Enthusiast","creator-bio":"Creator of the CropSmart AI Platform. Passionate about using technology to solve real-world problems for Indian farmers. Building tools that are accessible, multilingual, and actually useful in the field.","cta-title":"Start Using CropSmart Today","cta-sub":"Free, no account required — just insights for better farming.","cta-price":"Predict Prices","cta-crop":"Get Recommendations","footer-tagline":"Empowering farmers with AI-driven insights for better decisions.","footer-links":"Quick Links","footer-home":"Home","footer-price":"Price Prediction","footer-recommend":"Recommendations","footer-about":"About Us"},
+    "hi":{"page-title":"CropSmart के बारे में","page-subtitle":"भारतीय किसानों के लिए AI-संचालित अंतर्दृष्टि के साथ कृषि में क्रांति","mission-title":"हमारा मिशन","mission-text":"CropSmart मौसम के पैटर्न, ऐतिहासिक फसल डेटा और बाजार के रुझानों का विश्लेषण करने के लिए उन्नत मशीन लर्निंग एल्गोरिदम का उपयोग करता है।","feat-1":"AI-संचालित भविष्यवाणियां","feat-1-desc":"10+ वर्षों के वास्तविक भारतीय बाजार डेटा पर प्रशिक्षित ML मॉडल।","feat-2":"ऐतिहासिक डेटा","feat-2-desc":"10+ वर्षों का फसल मूल्य इतिहास।","feat-3":"भारत-व्यापी कवरेज","feat-3-desc":"सभी प्रमुख भारतीय कृषि क्षेत्रों के लिए सिफारिशें।","feat-4":"4 भाषाएं","feat-4-desc":"अंग्रेजी, हिन्दी, मराठी और तमिल पूरी तरह समर्थित।","tech-title":"किससे बनाया गया","tech-desc":"CropSmart एक शुद्ध फ्रंटएंड एप्लिकेशन है — कोई सर्वर नहीं।","creator-title":"निर्माता से मिलें","creator-role":"फुल-स्टैक डेवलपर और AI उत्साही","creator-bio":"CropSmart AI प्लेटफॉर्म के निर्माता। भारतीय किसानों के लिए वास्तविक समस्याओं को हल करने के लिए प्रौद्योगिकी का उपयोग करने के बारे में जोशीले।","cta-title":"आज CropSmart का उपयोग शुरू करें","cta-sub":"मुफ्त, कोई खाता नहीं — बेहतर खेती के लिए बस अंतर्दृष्टि।","cta-price":"कीमतें अनुमान लगाएं","cta-crop":"सिफारिशें प्राप्त करें","footer-tagline":"किसानों को बेहतर निर्णय लेने के लिए AI-संचालित अंतर्दृष्टि।","footer-links":"त्वरित लिंक","footer-home":"होम","footer-price":"मूल्य पूर्वानुमान","footer-recommend":"सिफारिशें","footer-about":"हमारे बारे में"},
+    "mr":{"page-title":"CropSmart बद्दल","page-subtitle":"भारतीय शेतकऱ्यांसाठी AI-चालित अंतर्दृष्टीसह शेतीत क्रांती","mission-title":"आमचे ध्येय","mission-text":"CropSmart हवामानाचे नमुने, ऐतिहासिक पिक डेटा आणि बाजार ट्रेंडचे विश्लेषण करण्यासाठी प्रगत मशीन लर्निंग अल्गोरिदम वापरते।","feat-1":"AI-चालित भविष्यवाणी","feat-1-desc":"10+ वर्षांच्या भारतीय बाजार डेटावर प्रशिक्षित ML मॉडेल।","feat-2":"ऐतिहासिक डेटा","feat-2-desc":"10+ वर्षांचा पिक किमत इतिहास।","feat-3":"भारत-व्यापी कव्हरेज","feat-3-desc":"सर्व प्रमुख भारतीय कृषी क्षेत्रांसाठी शिफारशी।","feat-4":"4 भाषा","feat-4-desc":"इंग्रजी, हिन्दी, मराठी आणि तमिळ पूर्णपणे समर्थित।","tech-title":"कोणत्या तंत्रज्ञानाने बनवले","tech-desc":"CropSmart एक शुद्ध फ्रंटएंड अॅप्लिकेशन आहे — कोणताही सर्व्हर नाही।","creator-title":"निर्मात्याशी भेटा","creator-role":"फुल-स्टॅक डेव्हलपर आणि AI उत्साही","creator-bio":"CropSmart AI प्लॅटफॉर्मचे निर्माते. भारतीय शेतकऱ्यांसाठी वास्तविक समस्या सोडवण्यासाठी तंत्रज्ञान वापरण्याबद्दल उत्साही.","cta-title":"आज CropSmart वापरणे सुरू करा","cta-sub":"मोफत, कोणतेही खाते नाही — बेहतर शेतीसाठी अंतर्दृष्टी।","cta-price":"किमती अंदाज लावा","cta-crop":"शिफारशी मिळवा","footer-tagline":"शेतकऱ्यांना बेहतर निर्णय घेण्यासाठी AI-चालित अंतर्दृष्टी।","footer-links":"द्रुत लिंक्स","footer-home":"होम","footer-price":"किमत अंदाज","footer-recommend":"शिफारशी","footer-about":"आमच्याबद्दल"},
+    "ta":{"page-title":"CropSmart பற்றி","page-subtitle":"இந்திய விவசாயிகளுக்கு AI நுண்ணறிவுடன் விவசாயத்தில் புரட்சி","mission-title":"எங்கள் நோக்கம்","mission-text":"CropSmart வானிலை வடிவங்கள், வரலாற்று பயிர் தரவு மற்றும் சந்தை போக்குகளை பகுப்பாய்வு செய்ய மேம்பட்ட ML அல்கோரிதம்களைப் பயன்படுத்துகிறது.","feat-1":"AI கணிப்புகள்","feat-1-desc":"10+ ஆண்டுகள் இந்திய சந்தை தரவில் பயிற்சி பெற்ற ML மாதிரிகள்.","feat-2":"வரலாற்று தரவு","feat-2-desc":"10+ ஆண்டுகள் பயிர் விலை வரலாறு.","feat-3":"இந்தியா முழுவதும்","feat-3-desc":"அனைத்து முக்கிய இந்திய விவசாய பகுதிகளுக்கும் பரிந்துரைகள்.","feat-4":"4 மொழிகள்","feat-4-desc":"ஆங்கிலம், हिन्दी, मराठी மற்றும் தமிழ் முழுமையாக ஆதரிக்கப்படுகிறது.","tech-title":"என்னால் கட்டப்பட்டது","tech-desc":"CropSmart ஒரு தூய முன்நிலை பயன்பாடு — சர்வர் தேவையில்லை.","creator-title":"படைப்பாளரை சந்திக்கவும்","creator-role":"முழு-ஸ்டாக் டெவலப்பர் மற்றும் AI ஆர்வலர்","creator-bio":"CropSmart AI தளத்தின் படைப்பாளர். இந்திய விவசாயிகளுக்கான உண்மையான பிரச்சினைகளை தொழில்நுட்பம் மூலம் தீர்க்க ஆர்வமுடையவர்.","cta-title":"இன்று CropSmart பயன்படுத்தத் தொடங்குங்கள்","cta-sub":"இலவசம், கணக்கு தேவையில்லை — சிறந்த விவசாயத்திற்கான நுண்ணறிவுகள்.","cta-price":"விலைகளை கணிக்கவும்","cta-crop":"பரிந்துரைகளைப் பெறவும்","footer-tagline":"விவசாயிகளுக்கு AI நுண்ணறிவை வழங்குதல்.","footer-links":"விரைவு இணைப்புகள்","footer-home":"முகப்பு","footer-price":"விலை கணிப்பு","footer-recommend":"பரிந்துரைகள்","footer-about":"எங்களைப் பற்றி"}}
+    </script>
+
+    <script src="js/language.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
