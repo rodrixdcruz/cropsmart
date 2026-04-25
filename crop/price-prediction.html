@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Prediction - CropSmart</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-seedling"></i>
+                <span>CropSmart</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="price-prediction.html" class="nav-link active">Price Prediction</a></li>
+                <li><a href="crop-recommendation.html" class="nav-link">Crop Recommendation</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Language Selector -->
+    <div class="language-selector-container">
+        <button class="language-toggle" id="languageToggle">
+            <i class="fas fa-globe"></i>
+            <span id="currentLangLabel">English</span>
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="language-menu hidden" id="languageMenu">
+            <button class="lang-option active" data-lang="en"><span>🇬🇧 English</span></button>
+            <button class="lang-option" data-lang="hi"><span>🇮🇳 हिन्दी (Hindi)</span></button>
+            <button class="lang-option" data-lang="mr"><span>🇮🇳 मराठी (Marathi)</span></button>
+            <button class="lang-option" data-lang="ta"><span>🇮🇳 தமிழ் (Tamil)</span></button>
+        </div>
+    </div>
+
+    <!-- Price Prediction Section -->
+    <section class="crop-recommendation">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header-enhanced">
+                <div class="header-glow"></div>
+                <h1>
+                    <span class="leaf-accent">📈</span>
+                    <span data-i18n="price-title">Price Prediction Engine</span>
+                </h1>
+                <p data-i18n="price-subtitle">Get 7-day accurate price forecasts for your crops</p>
+            </div>
+
+            <!-- Market Info Card -->
+            <div class="info-card-enhanced">
+                <i class="fas fa-info-circle"></i>
+                <div class="info-text">
+                    <strong data-i18n="info-heading">Real-time Market Data</strong>
+                    <p data-i18n="info-text">Powered by advanced ML algorithms analyzing market trends and historical data</p>
+                </div>
+            </div>
+
+            <!-- Prediction Form -->
+            <div class="form-section">
+                <h2 class="form-title" data-i18n="form-title">Predict Market Prices</h2>
+                <div class="recommendation-form-enhanced">
+                    <div class="form-grid">
+                        <!-- Crop Selection -->
+                        <div class="form-group-enhanced">
+                            <label data-i18n="label-crop">Select Crop</label>
+                            <select id="cropSelect" class="select-enhanced">
+                                <option value="" data-i18n="opt-choose">Choose a crop</option>
+                                <optgroup label="── Cereals & Grains ──">
+                                <option value="rice" data-i18n="crop-rice">🍚 Rice</option>
+                                <option value="wheat" data-i18n="crop-wheat">🌾 Wheat</option>
+                                <option value="maize" data-i18n="crop-maize">🌽 Maize</option>
+                                <option value="barley" data-i18n="crop-barley">🌿 Barley</option>
+                                <option value="sorghum" data-i18n="crop-sorghum">🌾 Sorghum (Jowar)</option>
+                                <option value="bajra" data-i18n="crop-bajra">🌾 Pearl Millet (Bajra)</option>
+                                <option value="ragi" data-i18n="crop-ragi">🌾 Finger Millet (Ragi)</option>
+                                </optgroup>
+                                <optgroup label="── Pulses ──">
+                                <option value="chickpea" data-i18n="crop-chickpea">🫘 Chickpea (Chana)</option>
+                                <option value="pigeonpea" data-i18n="crop-pigeonpea">🫘 Pigeon Pea (Tur/Arhar)</option>
+                                <option value="lentil" data-i18n="crop-lentil">🫘 Lentil (Masoor)</option>
+                                <option value="greengram" data-i18n="crop-greengram">🫘 Green Gram (Moong)</option>
+                                <option value="blackgram" data-i18n="crop-blackgram">🫘 Black Gram (Urad)</option>
+                                <option value="soybean" data-i18n="crop-soybean">🫘 Soybean</option>
+                                </optgroup>
+                                <optgroup label="── Oilseeds ──">
+                                <option value="mustard" data-i18n="crop-mustard">🟡 Mustard/Rapeseed</option>
+                                <option value="groundnut" data-i18n="crop-groundnut">🥜 Groundnut</option>
+                                <option value="sunflower" data-i18n="crop-sunflower">🌻 Sunflower</option>
+                                <option value="sesame" data-i18n="crop-sesame">🌿 Sesame (Til)</option>
+                                <option value="linseed" data-i18n="crop-linseed">🌿 Linseed</option>
+                                <option value="castor" data-i18n="crop-castor">🌿 Castor</option>
+                                </optgroup>
+                                <optgroup label="── Cash Crops ──">
+                                <option value="cotton" data-i18n="crop-cotton">⚪ Cotton</option>
+                                <option value="sugarcane" data-i18n="crop-sugarcane">🎋 Sugarcane</option>
+                                <option value="jute" data-i18n="crop-jute">🌿 Jute</option>
+                                <option value="tobacco" data-i18n="crop-tobacco">🍂 Tobacco</option>
+                                </optgroup>
+                                <optgroup label="── Spices ──">
+                                <option value="turmeric" data-i18n="crop-turmeric">🟡 Turmeric</option>
+                                <option value="chilli" data-i18n="crop-chilli">🌶️ Chilli</option>
+                                <option value="coriander" data-i18n="crop-coriander">🌿 Coriander</option>
+                                <option value="cumin" data-i18n="crop-cumin">🌿 Cumin (Jeera)</option>
+                                <option value="ginger" data-i18n="crop-ginger">🫚 Ginger</option>
+                                <option value="garlic" data-i18n="crop-garlic">🧄 Garlic</option>
+                                <option value="onion" data-i18n="crop-onion">🧅 Onion</option>
+                                </optgroup>
+                                <optgroup label="── Vegetables ──">
+                                <option value="potato" data-i18n="crop-potato">🥔 Potato</option>
+                                <option value="tomato" data-i18n="crop-tomato">🍅 Tomato</option>
+                                <option value="brinjal" data-i18n="crop-brinjal">🍆 Brinjal</option>
+                                <option value="okra" data-i18n="crop-okra">🌿 Okra (Bhindi)</option>
+                                <option value="cabbage" data-i18n="crop-cabbage">🥬 Cabbage</option>
+                                <option value="cauliflower" data-i18n="crop-cauliflower">🥦 Cauliflower</option>
+                                </optgroup>
+                                <optgroup label="── Fruits ──">
+                                <option value="banana" data-i18n="crop-banana">🍌 Banana</option>
+                                <option value="mango" data-i18n="crop-mango">🥭 Mango</option>
+                                <option value="grapes" data-i18n="crop-grapes">🍇 Grapes</option>
+                                <option value="pomegranate" data-i18n="crop-pomegranate">🍎 Pomegranate</option>
+                                <option value="orange" data-i18n="crop-orange">🍊 Orange</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <!-- Market Selection -->
+                        <div class="form-group-enhanced">
+                            <label data-i18n="label-market">Market Location</label>
+                            <select id="marketSelect" class="select-enhanced">
+                                <option value="" data-i18n="opt-select">Select market...</option>
+                                <optgroup label="── Metro Cities ──">
+                                <option value="delhi" data-i18n="market-delhi">🏙️ Delhi</option>
+                                <option value="mumbai" data-i18n="market-mumbai">🏙️ Mumbai</option>
+                                <option value="chennai" data-i18n="market-chennai">🏙️ Chennai</option>
+                                <option value="kolkata" data-i18n="market-kolkata">🏙️ Kolkata</option>
+                                <option value="bangalore" data-i18n="market-bangalore">🏙️ Bangalore</option>
+                                <option value="hyderabad" data-i18n="market-hyderabad">🏙️ Hyderabad</option>
+                                </optgroup>
+                                <optgroup label="── North India ──">
+                                <option value="amritsar" data-i18n="market-amritsar">🌾 Amritsar (Punjab)</option>
+                                <option value="ludhiana" data-i18n="market-ludhiana">🌾 Ludhiana (Punjab)</option>
+                                <option value="chandigarh" data-i18n="market-chandigarh">🏙️ Chandigarh</option>
+                                <option value="jaipur" data-i18n="market-jaipur">🏙️ Jaipur (Rajasthan)</option>
+                                <option value="jodhpur" data-i18n="market-jodhpur">🏙️ Jodhpur (Rajasthan)</option>
+                                <option value="agra" data-i18n="market-agra">🏙️ Agra (UP)</option>
+                                <option value="lucknow" data-i18n="market-lucknow">🏙️ Lucknow (UP)</option>
+                                <option value="kanpur" data-i18n="market-kanpur">🏙️ Kanpur (UP)</option>
+                                <option value="varanasi" data-i18n="market-varanasi">🏙️ Varanasi (UP)</option>
+                                <option value="meerut" data-i18n="market-meerut">🏙️ Meerut (UP)</option>
+                                <option value="haridwar" data-i18n="market-haridwar">🏙️ Haridwar (Uttarakhand)</option>
+                                <option value="shimla" data-i18n="market-shimla">🏔️ Shimla (HP)</option>
+                                <option value="dehradun" data-i18n="market-dehradun">🏔️ Dehradun (Uttarakhand)</option>
+                                </optgroup>
+                                <optgroup label="── West India ──">
+                                <option value="pune" data-i18n="market-pune">🏙️ Pune (Maharashtra)</option>
+                                <option value="nagpur" data-i18n="market-nagpur">🍊 Nagpur (Maharashtra)</option>
+                                <option value="nashik" data-i18n="market-nashik">🍇 Nashik (Maharashtra)</option>
+                                <option value="amravati" data-i18n="market-amravati">🌿 Amravati (Maharashtra)</option>
+                                <option value="aurangabad" data-i18n="market-aurangabad">🏙️ Chhatrapati Sambhajinagar (MH)</option>
+                                <option value="kolhapur" data-i18n="market-kolhapur">🏙️ Kolhapur (Maharashtra)</option>
+                                <option value="surat" data-i18n="market-surat">🏙️ Surat (Gujarat)</option>
+                                <option value="ahmedabad" data-i18n="market-ahmedabad">🏙️ Ahmedabad (Gujarat)</option>
+                                <option value="rajkot" data-i18n="market-rajkot">🏙️ Rajkot (Gujarat)</option>
+                                <option value="vadodara" data-i18n="market-vadodara">🏙️ Vadodara (Gujarat)</option>
+                                <option value="indore" data-i18n="market-indore">🏙️ Indore (MP)</option>
+                                <option value="bhopal" data-i18n="market-bhopal">🏙️ Bhopal (MP)</option>
+                                <option value="gwalior" data-i18n="market-gwalior">🏙️ Gwalior (MP)</option>
+                                <option value="jabalpur" data-i18n="market-jabalpur">🏙️ Jabalpur (MP)</option>
+                                </optgroup>
+                                <optgroup label="── South India ──">
+                                <option value="coimbatore" data-i18n="market-coimbatore">🏙️ Coimbatore (TN)</option>
+                                <option value="madurai" data-i18n="market-madurai">🏙️ Madurai (TN)</option>
+                                <option value="trichy" data-i18n="market-trichy">🏙️ Trichy (TN)</option>
+                                <option value="salem" data-i18n="market-salem">🏙️ Salem (TN)</option>
+                                <option value="mysore" data-i18n="market-mysore">🏙️ Mysore (Karnataka)</option>
+                                <option value="hubli" data-i18n="market-hubli">🏙️ Hubli-Dharwad (Karnataka)</option>
+                                <option value="mangalore" data-i18n="market-mangalore">🏙️ Mangalore (Karnataka)</option>
+                                <option value="kochi" data-i18n="market-kochi">🌴 Kochi (Kerala)</option>
+                                <option value="thiruvananthapuram" data-i18n="market-thiruvananthapuram">🌴 Thiruvananthapuram (Kerala)</option>
+                                <option value="kozhikode" data-i18n="market-kozhikode">🌴 Kozhikode (Kerala)</option>
+                                <option value="vijayawada" data-i18n="market-vijayawada">🏙️ Vijayawada (AP)</option>
+                                <option value="visakhapatnam" data-i18n="market-visakhapatnam">🏙️ Visakhapatnam (AP)</option>
+                                <option value="guntur" data-i18n="market-guntur">🌶️ Guntur (AP)</option>
+                                <option value="warangal" data-i18n="market-warangal">🏙️ Warangal (Telangana)</option>
+                                </optgroup>
+                                <optgroup label="── East India ──">
+                                <option value="patna" data-i18n="market-patna">🏙️ Patna (Bihar)</option>
+                                <option value="gaya" data-i18n="market-gaya">🏙️ Gaya (Bihar)</option>
+                                <option value="muzaffarpur" data-i18n="market-muzaffarpur">🏙️ Muzaffarpur (Bihar)</option>
+                                <option value="bhubaneswar" data-i18n="market-bhubaneswar">🏙️ Bhubaneswar (Odisha)</option>
+                                <option value="cuttack" data-i18n="market-cuttack">🏙️ Cuttack (Odisha)</option>
+                                <option value="sambalpur" data-i18n="market-sambalpur">🏙️ Sambalpur (Odisha)</option>
+                                <option value="ranchi" data-i18n="market-ranchi">🏙️ Ranchi (Jharkhand)</option>
+                                <option value="jamshedpur" data-i18n="market-jamshedpur">🏙️ Jamshedpur (Jharkhand)</option>
+                                <option value="siliguri" data-i18n="market-siliguri">🏔️ Siliguri (WB)</option>
+                                <option value="asansol" data-i18n="market-asansol">🏙️ Asansol (WB)</option>
+                                <option value="guwahati" data-i18n="market-guwahati">🏙️ Guwahati (Assam)</option>
+                                <option value="dibrugarh" data-i18n="market-dibrugarh">🍵 Dibrugarh (Assam)</option>
+                                </optgroup>
+                                <optgroup label="── Central India ──">
+                                <option value="raipur" data-i18n="market-raipur">🏙️ Raipur (Chhattisgarh)</option>
+                                <option value="bilaspur" data-i18n="market-bilaspur">🏙️ Bilaspur (CG)</option>
+                                <option value="nagpur_vidarbha" data-i18n="market-nagpur_vidarbha">🌿 Nagpur APMC (Vidarbha)</option>
+                                <option value="yavatmal" data-i18n="market-yavatmal">🌿 Yavatmal (Maharashtra)</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Predict Button -->
+                    <button class="btn-analyze" onclick="predictPrice()">
+                        <i class="fas fa-magic"></i>
+                        <span data-i18n="btn-predict">Predict Price</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="predictionResults" class="recommendations-section-enhanced hidden">
+                <div class="results-header">
+                    <h2 data-i18n="results-title">7-Day Price Forecast</h2>
+                    <p data-i18n="results-subtitle">Market predictions based on current trends</p>
+                </div>
+
+                <!-- Current Price Card -->
+                <div class="price-card-current">
+                    <div class="price-card-content">
+                        <span class="price-label" data-i18n="label-today">Today's Price</span>
+                        <span class="price-value" id="currentPrice">₹25.50/kg</span>
+                    </div>
+                </div>
+
+                <!-- Chart -->
+                <div class="chart-container">
+                    <canvas id="priceChart"></canvas>
+                </div>
+
+                <!-- Prediction Summary -->
+                <div class="prediction-summary-enhanced">
+                    <div class="summary-item">
+                        <div class="trend-badge" id="trendBadge">
+                            <i class="fas fa-arrow-up"></i>
+                            <span id="trendText">UP 8.2%</span>
+                        </div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="recommendation-badge">
+                            <i class="fas fa-lightbulb"></i>
+                            <span id="recommendationText" data-i18n="rec-good">Good time to sell!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Range -->
+                <div class="price-range-card">
+                    <div class="range-item">
+                        <label data-i18n="price-low">Lowest Expected</label>
+                        <span id="lowestPrice">₹23.00/kg</span>
+                    </div>
+                    <div class="range-divider"></div>
+                    <div class="range-item">
+                        <label data-i18n="price-high">Highest Expected</label>
+                        <span id="highestPrice">₹28.50/kg</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-seedling"></i>
+                        <span>CropSmart</span>
+                    </div>
+                    <p data-i18n="footer-tagline">Empowering farmers with AI-driven insights for better decisions.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 data-i18n="footer-links">Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html" data-i18n="footer-home">Home</a></li>
+                        <li><a href="price-prediction.html" data-i18n="footer-price">Price Prediction</a></li>
+                        <li><a href="crop-recommendation.html" data-i18n="footer-recommend">Recommendations</a></li>
+                        <li><a href="about.html" data-i18n="footer-about">About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CropSmart. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Language Data -->
+    <script id="language-data" type="application/json">
+    {
+        "en": {
+            "price-title": "Price Prediction Engine",
+            "price-subtitle": "Get 7-day accurate price forecasts for your crops",
+            "info-heading": "Real-time Market Data",
+            "info-text": "Powered by advanced ML algorithms analyzing market trends and historical data",
+            "form-title": "Predict Market Prices",
+            "label-crop": "Select Crop",
+            "label-market": "Market Location",
+            "opt-choose": "Choose a crop",
+            "opt-select": "Select market...",
+            "crop-rice": "🍚 Rice",
+            "crop-wheat": "🌾 Wheat",
+            "crop-maize": "🌽 Maize",
+            "crop-soybean": "🫘 Soybean",
+            "crop-cotton": "⚪ Cotton",
+            "market-delhi": "🏙️ Delhi",
+            "market-mumbai": "🏙️ Mumbai",
+            "market-chennai": "🏙️ Chennai",
+            "market-kolkata": "🏙️ Kolkata",
+            "market-bangalore": "🏙️ Bangalore",
+            "market-hyderabad": "🏙️ Hyderabad",
+            "btn-predict": "Predict Price",
+            "results-title": "7-Day Price Forecast",
+            "results-subtitle": "Market predictions based on current trends",
+            "label-today": "Today's Price",
+            "rec-good": "Good time to sell!",
+            "price-low": "Lowest Expected",
+            "price-high": "Highest Expected",
+            "footer-tagline": "Empowering farmers with AI-driven insights for better decisions.",
+            "footer-links": "Quick Links",
+            "footer-home": "Home",
+            "footer-price": "Price Prediction",
+            "footer-recommend": "Recommendations",
+            "footer-about": "About Us"
+        },
+        "hi": {
+            "price-title": "कीमत पूर्वानुमान इंजन",
+            "price-subtitle": "अपनी फसलों के लिए 7-दिवसीय सटीक कीमत पूर्वानुमान प्राप्त करें",
+            "info-heading": "रीयल-टाइम बाजार डेटा",
+            "info-text": "बाजार के रुझानों और ऐतिहासिक डेटा का विश्लेषण करने वाले उन्नत एमएल एल्गोरिदम द्वारा संचालित",
+            "form-title": "बाजार कीमतों की भविष्यवाणी करें",
+            "label-crop": "फसल चुनें",
+            "label-market": "बाजार स्थान",
+            "opt-choose": "एक फसल चुनें",
+            "opt-select": "बाजार चुनें...",
+            "crop-rice": "🍚 चावल",
+            "crop-wheat": "🌾 गेहूं",
+            "crop-maize": "🌽 मकई",
+            "crop-soybean": "🫘 सोयाबीन",
+            "crop-cotton": "⚪ कपास",
+            "market-delhi": "🏙️ दिल्ली",
+            "market-mumbai": "🏙️ मुंबई",
+            "market-chennai": "🏙️ चेन्नई",
+            "market-kolkata": "🏙️ कोलकाता",
+            "market-bangalore": "🏙️ बेंगलुरु",
+            "market-hyderabad": "🏙️ हैदराबाद",
+            "btn-predict": "कीमत की भविष्यवाणी करें",
+            "results-title": "7-दिवसीय कीमत पूर्वानुमान",
+            "results-subtitle": "वर्तमान प्रवृत्तियों के आधार पर बाजार भविष्यवाणियां",
+            "label-today": "आज की कीमत",
+            "rec-good": "बेचने का अच्छा समय!",
+            "price-low": "सबसे कम अपेक्षित",
+            "price-high": "सर्वोच्च अपेक्षित",
+            "footer-tagline": "किसानों को बेहतर निर्णय लेने के लिए AI-संचालित अंतर्दृष्टि प्रदान करना।",
+            "footer-links": "त्वरित लिंक",
+            "footer-home": "होम",
+            "footer-price": "मूल्य पूर्वानुमान",
+            "footer-recommend": "सिफारिशें",
+            "footer-about": "हमारे बारे में"
+        },
+        "mr": {
+            "price-title": "किमत अंदाज इंजिन",
+            "price-subtitle": "तुमच्या पिकांच्या 7-दिवसीय अचूक किमती अंदाज मिळवा",
+            "info-heading": "रीयल-टाइम बाजार डेटा",
+            "info-text": "बाजार ट्रेंड आणि ऐतिहासिक डेटा विश्लेषण करणारे प्रगत एमएल अल्गोरिदम द्वारे समर्थित",
+            "form-title": "बाजार किमती अंदाज लावा",
+            "label-crop": "पिक निवडा",
+            "label-market": "बाजार स्थान",
+            "opt-choose": "एक पिक निवडा",
+            "opt-select": "बाजार निवडा...",
+            "crop-rice": "🍚 तांदूळ",
+            "crop-wheat": "🌾 गहू",
+            "crop-maize": "🌽 कोंबडी",
+            "crop-soybean": "🫘 सोयाबीन",
+            "crop-cotton": "⚪ कापूस",
+            "market-delhi": "🏙️ दिल्ली",
+            "market-mumbai": "🏙️ मुंबई",
+            "market-chennai": "🏙️ चेन्नई",
+            "market-kolkata": "🏙️ कोलकाता",
+            "market-bangalore": "🏙️ बेंगलुरु",
+            "market-hyderabad": "🏙️ हैदराबाद",
+            "btn-predict": "किमत अंदाज लावा",
+            "results-title": "7-दिवसीय किमत अंदाज",
+            "results-subtitle": "वर्तमान ट्रेंडच्या आधारे बाजार भविष्यवाणी",
+            "label-today": "आजची किमत",
+            "rec-good": "विक्री करण्याचा चांगला वेळ!",
+            "price-low": "सर्वात कमी अपेक्षित",
+            "price-high": "सर्वोच्च अपेक्षित",
+            "footer-tagline": "शेतकऱ्यांना बेहतर निर्णय घेण्यासाठी AI-चालित अंतर्दृष्टी प्रदान करणे।",
+            "footer-links": "द्रुत लिंक्स",
+            "footer-home": "होम",
+            "footer-price": "किमत अंदाज",
+            "footer-recommend": "शिफारशी",
+            "footer-about": "आमच्याबद्दल"
+        },
+        "ta": {
+            "price-title": "விலை கணிப்பு இंजिन",
+            "price-subtitle": "உங்கள் பயிர்களுக்கு 7-நாள் துல்லியமான விலை முன்னறிவிப்புகளைப் பெறுங்கள்",
+            "info-heading": "நிலையான சந்தை தரவு",
+            "info-text": "சந்தை போக்குகள் மற்றும் வரலாற்று தரவை பகுப்பாய்வு செய்யும் மேம்பட்ட ML அல்கோரிதம்கள் எவ்வாறு ஆதரிக்கப்படுகிறது",
+            "form-title": "சந்தை விலைகளை கணிக்கவும்",
+            "label-crop": "பயிரைத் தேர்ந்தெடுக்கவும்",
+            "label-market": "சந்தை இருப்பிடம்",
+            "opt-choose": "பயிர் தேர்ந்தெடுக்கவும்",
+            "opt-select": "சந்தை தேர்ந்தெடுக்கவும்...",
+            "crop-rice": "🍚 அரிசி",
+            "crop-wheat": "🌾 கோதுமை",
+            "crop-maize": "🌽 மக்காச்சோளம்",
+            "crop-soybean": "🫘 சோயாபீன்",
+            "crop-cotton": "⚪ பருத்தி",
+            "market-delhi": "🏙️ டெல்லி",
+            "market-mumbai": "🏙️ மும்பை",
+            "market-chennai": "🏙️ சென்னை",
+            "market-kolkata": "🏙️ கोलकाता",
+            "market-bangalore": "🏙️ பெங்களூரு",
+            "market-hyderabad": "🏙️ ஹைதராபாத்",
+            "btn-predict": "விலை கணிக்கவும்",
+            "results-title": "7-நாள் விலை முன்னறிவிப்பு",
+            "results-subtitle": "தற்போதைய போக்குகளின் அடிப்படையில் சந்தை கணிப்புகள்",
+            "label-today": "இன்றைய விலை",
+            "rec-good": "விற்பனை செய்ய நல்ல நேரம்!",
+            "price-low": "மிகக் குறைந்த அপेக்षை",
+            "price-high": "மிக உயர்ந்த அபेக்षை",
+            "footer-tagline": "விவசாயிகளுக்கு சிறந்த முடிவுகளை எடுக்க AI-உயர்த்திய நுண்ணறிவை வழங்குதல்।",
+            "footer-links": "விரைவு இணைப்புகள்",
+            "footer-home": "முகப்பு",
+            "footer-price": "விலை கணிப்பு",
+            "footer-recommend": "சிபாரிசுகள்",
+            "footer-about": "எங்களைப் பற்றி"
+        }
+    }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/price-prediction.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
