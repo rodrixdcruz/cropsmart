@@ -209,7 +209,7 @@ async function predictPrice() {
     try {
         let priceData;
 
-        if (DATA_GOV_API_KEY && DATA_GOV_API_KEY !== "579b464db66ec23bdd000001f200c6dbe24e49ae448c6af380e659bd") {
+        if (DATA_GOV_API_KEY) {
             priceData = await fetchFromAgmarknet(crop, market);
         }
 

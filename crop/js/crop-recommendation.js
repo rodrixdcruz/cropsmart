@@ -325,15 +325,21 @@ function getSuitability(score) {
 }
 
 function getRecommendations() {
-    const btn = document.querySelector('.recommendation-form .btn-primary');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
-    btn.disabled = true;
+    const btn = document.querySelector('.recommendation-form .btn-primary')
+        || document.querySelector('.recommendation-form-enhanced .btn-analyze')
+        || document.querySelector('.btn-analyze');
+    if (btn) {
+        if (btn.dataset.busy) return; // ignore re-entrant clicks while analyzing
+        btn.dataset.busy = '1';
+        var originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+        btn.disabled = true;
+    }
 
     setTimeout(() => {
-        showCropRecommendations();
-        btn.innerHTML = originalText;
-        btn.disabled = false;
+        try { showCropRecommendations(); } finally {
+            if (btn) { btn.innerHTML = originalText; btn.disabled = false; delete btn.dataset.busy; }
+        }
     }, 2000);
 }
 

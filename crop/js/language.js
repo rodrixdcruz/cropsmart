@@ -153,14 +153,13 @@ class LanguageManager {
     }
 
     get(key) {
-        if (this.translations[this.currentLang] && this.translations[this.currentLang][key]) {
-            return this.translations[this.currentLang][key];
+        const langs = [this.currentLang, 'en'];
+        for (const l of langs) {
+            if (this.translations[l] && this.translations[l][key]) {
+                return this.translations[l][key];
+            }
         }
-        // Fallback to English
-        if (this.translations['en'] && this.translations['en'][key]) {
-            return this.translations['en'][key];
-        }
-        return key;
+        return ''; // missing -> keep the original markup text
     }
 
     translate(key) {
