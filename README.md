@@ -1,4 +1,8 @@
 <div align="center">
+<img src="docs/social-preview.png" alt="CropSmart — AI crop advisory for Indian farmers" width="100%">
+</div>
+
+<div align="center">
 
 # 🌱 CropSmart — AI Crop Advisory for Indian Farmers
 
