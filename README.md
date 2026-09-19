@@ -71,4 +71,4 @@ Released under the [MIT License](LICENSE).
 
 ## 🌦️ Also from this author
 
-**[MausamBagha AI](https://github.com/rodrixdcruz/Weather-GPT)** — the evolution of this idea into a full-stack, explainable weather-risk & disaster decision platform, live at [weathergpt-web.onrender.com](https://weathergpt-web.onrender.com).
+**[MausamBagha AI](https://github.com/rodrixdcruz/mausambagha-ai)** — the evolution of this idea into a full-stack, explainable weather-risk & disaster decision platform, live at [weathergpt-web.onrender.com](https://weathergpt-web.onrender.com).
